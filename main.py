@@ -84,7 +84,7 @@ def activate_window(window_id):
         window_id {str} -- window identifier 
                            (normally hex, but cli passed in 0x format anyway)
     """
-    proc = subprocess.call(['wmctrl', '-ai', window_id])
+    proc = subprocess.call(['wmctrl', '-i', '-a', window_id])
 
 
 class DemoExtension(Extension):
