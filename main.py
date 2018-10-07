@@ -36,7 +36,7 @@ def list_windows():
             'desktop': desktop_num,
             'pid': pid,
             'host': host,
-            'title': title
+            'title': title.decode('utf-8')
         })
 
     return windows
@@ -54,7 +54,7 @@ def get_process_name(pid):
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE)
     out, err=proc.communicate()
-    return out.strip()
+    return out.strip().decode('utf-8')
 
 
 def get_open_windows():
