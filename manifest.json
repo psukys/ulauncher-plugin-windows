@@ -6,7 +6,7 @@
     "developer_name": "Paulius Sukys",
     "icon": "images/icon.png",
     "options": {
-      "query_debounce": 0.1
+      "query_debounce": 0.01
     },
     "preferences": [
       {
