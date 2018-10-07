@@ -93,12 +93,21 @@ class DemoExtension(Extension):
         super(DemoExtension, self).__init__()
         self.subscribe(KeywordQueryEvent, KeywordQueryEventListener())
         self.subscribe(ItemEnterEvent, ItemEnterEventListener())
+        self.windows = []
 
 
 class KeywordQueryEventListener(EventListener):
 
     def on_event(self, event, extension):
         windows = get_open_windows()
+        extension.windows = windows  # persistance
+
+        arg = event.get_argument()
+        if arg is not None:
+            # filter by title or process name
+            windows = filter(lambda x: arg in x.get_name() or arg in x.get_description(None),
+                             windows)
+
         return RenderResultListAction(windows)
 
 
