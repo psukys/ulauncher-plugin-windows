@@ -1,11 +1,15 @@
 from ulauncher.api.client.Extension import Extension
 from ulauncher.api.client.EventListener import EventListener
-from ulauncher.api.shared.event import KeywordQueryEvent, ItemEnterEvent
+from ulauncher.api.shared.event import KeywordQueryEvent
 from ulauncher.api.shared.item.ExtensionResultItem import ExtensionResultItem
 from ulauncher.api.shared.action.RenderResultListAction import RenderResultListAction
 from ulauncher.api.shared.action.ExtensionCustomAction import ExtensionCustomAction
+from ulauncher.api.shared.action.RunScriptAction import RunScriptAction
 
 import subprocess
+
+
+ACTIVATE_COMMAND = 'wmctrl -i -a {}'
 
 
 def list_windows():
@@ -72,19 +76,9 @@ def get_open_windows():
         results.append(ExtensionResultItem(icon='images/icon.png',
                                            name=get_process_name(window['pid']),
                                            description=window['title'],
-                                           on_enter=ExtensionCustomAction(window)
+                                           on_enter=RunScriptAction(ACTIVATE_COMMAND.format(window['id']), None)
                        ))
     return results
-
-
-def activate_window(window_id):
-    """Activates a window by its identifier
-
-    Arguments:
-        window_id {str} -- window identifier 
-                           (normally hex, but cli passed in 0x format anyway)
-    """
-    proc = subprocess.call(['wmctrl', '-i', '-a', window_id])
 
 
 class DemoExtension(Extension):
@@ -92,7 +86,6 @@ class DemoExtension(Extension):
     def __init__(self):
         super(DemoExtension, self).__init__()
         self.subscribe(KeywordQueryEvent, KeywordQueryEventListener())
-        self.subscribe(ItemEnterEvent, ItemEnterEventListener())
         self.windows = []
 
 
@@ -109,13 +102,6 @@ class KeywordQueryEventListener(EventListener):
                              windows)
 
         return RenderResultListAction(windows)
-
-
-class ItemEnterEventListener(EventListener):
-
-    def on_event(self, event, extension):
-        window = event.get_data()
-        activate_window(window['id'])
 
 
 if __name__ == '__main__':
