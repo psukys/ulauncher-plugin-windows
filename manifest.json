@@ -1,0 +1,20 @@
+{
+    "manifest_version": "2",
+    "api_version": "1",
+    "name": "Window select",
+    "description": "Select from a list of open windows",
+    "developer_name": "Paulius Sukys",
+    "icon": "images/icon.png",
+    "options": {
+      "query_debounce": 0.1
+    },
+    "preferences": [
+      {
+        "id": "window_select_kw",
+        "type": "keyword",
+        "name": "Windows",
+        "description": "List of open windows",
+        "default_value": "w"
+      }
+    ]
+}
