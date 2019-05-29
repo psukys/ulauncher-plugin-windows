@@ -1,6 +1,6 @@
 from ulauncher.api.client.Extension import Extension
 from ulauncher.api.client.EventListener import EventListener
-from ulauncher.api.shared.event import KeywordQueryEvent
+from ulauncher.api.shared.event import KeywordQueryEvent, SystemExitEvent
 from ulauncher.api.shared.item.ExtensionResultItem import ExtensionResultItem
 from ulauncher.api.shared.action.RenderResultListAction import RenderResultListAction
 from ulauncher.api.shared.action.ExtensionCustomAction import ExtensionCustomAction
@@ -86,8 +86,13 @@ class DemoExtension(Extension):
     def __init__(self):
         super(DemoExtension, self).__init__()
         self.subscribe(KeywordQueryEvent, KeywordQueryEventListener())
+        self.subscribe(SystemExitEvent, SystemExitEventListener())
         self.windows = []
 
+
+class SystemExitEventListener(EventListener):
+    def on_event(self, event, extension):
+        pass
 
 class KeywordQueryEventListener(EventListener):
 
