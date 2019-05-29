@@ -28,7 +28,7 @@ def list_windows():
     out, err = proc.communicate()
     windows = []
     for line in out.splitlines():
-        info = line.split()
+        info = str(line, encoding='utf8').split()
         # Format expected: ID num PID host title with spaces
         window_id = info[0]
         desktop_num = info[1]
@@ -40,7 +40,7 @@ def list_windows():
             'desktop': desktop_num,
             'pid': pid,
             'host': host,
-            'title': title.decode('utf-8')
+            'title': title
         })
 
     return windows
