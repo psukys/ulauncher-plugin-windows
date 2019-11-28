@@ -106,7 +106,7 @@ class KeywordQueryEventListener(EventListener):
             windows = filter(lambda x: arg in x.get_name() or arg in x.get_description(None),
                              windows)
 
-        return RenderResultListAction(windows)
+        return RenderResultListAction(list(windows))
 
 
 if __name__ == '__main__':
