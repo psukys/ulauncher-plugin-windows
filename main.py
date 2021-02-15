@@ -8,10 +8,12 @@ from ulauncher.api.shared.action.RunScriptAction import RunScriptAction
 
 import subprocess
 
+from memoization import cached
 
 ACTIVATE_COMMAND = 'wmctrl -i -a {}'
 
 
+@cached(ttl=5)
 def list_windows():
     """List the windows being managed by the window manager.
 
@@ -46,6 +48,7 @@ def list_windows():
     return windows
 
 
+@cached(ttl=15)
 def get_process_name(pid):
     """Find out process name, given its' ID
 

@@ -3,7 +3,8 @@
 
 ## Dependencies
 
-This plugin relies on `wmctrl` package, which needs to be installed prior.
+This plugin relies on `wmctrl` package, which needs to be installed prior. It also relies on the Python `memoization` package being available.
+
 
 ## Usage
 
