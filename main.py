@@ -37,13 +37,14 @@ def list_windows():
         pid = info[2]
         host = info[3]
         title = ' '.join(info[4:])
-        windows.append({
-            'id': window_id,
-            'desktop': desktop_num,
-            'pid': pid,
-            'host': host,
-            'title': title
-        })
+        if title != "Ulauncher - Application Launcher":
+            windows.append({
+                'id': window_id,
+                'desktop': desktop_num,
+                'pid': pid,
+                'host': host,
+                'title': title
+            })
 
     return windows
 
